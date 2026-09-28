@@ -1,0 +1,15 @@
+# Nextflow runtime
+work/
+.nextflow/
+.nextflow.log*
+null/
+
+# Pipeline outputs
+results/
+results_test*/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
