@@ -13,3 +13,6 @@ results_test*/
 
 # macOS
 .DS_Store
+
+fetchngs_out/
+*.fastq.gz

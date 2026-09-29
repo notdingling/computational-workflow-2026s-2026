@@ -1,0 +1,3 @@
+sample,run,region,surgery,condition,group
+unknownRegion_SNI_Oxy_SRR23195516,SRR23195516,unknownRegion,SNI,Oxy,SNI_Oxy
+unknownRegion_Sham_Oxy_SRR23195511,SRR23195511,unknownRegion,Sham,Oxy,Sham_Oxy
