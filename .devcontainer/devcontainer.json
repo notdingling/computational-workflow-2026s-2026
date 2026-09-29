@@ -1,0 +1,23 @@
+{
+    "name": "ComputationalWorkflows",
+    "image": "nfcore/devcontainer:latest",
+
+    "remoteEnv": {
+        "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+    },
+
+    "remoteUser": "root",
+    "privileged": true,
+    "onCreateCommand": "bash .devcontainer/setup.sh",
+    "customizations": {
+        "vscode": {
+            "extensions": ["ms-toolsai.jupyter", "nextflow.nextflow", "ms-python.python"]
+        }
+    },
+    // More beefy machine on codespaces. May cause warning locally
+    "hostRequirements": {
+        "cpus": 4,
+        "memory": "16gb",
+        "storage": "32gb"
+    }
+}
