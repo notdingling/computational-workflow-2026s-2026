@@ -1,11 +1,21 @@
-FROM debian:bullseye-slim
+# use the file "salmon_docker" in this directory to build a new docker image
+FROM ubuntu:22.04
 
-LABEL image.author.name="yourname"
-LABEL image.author.email="yourmail"
+ENV DEBIAN_FRONTEND=noninteractive
 
-# Install dependencies
+# curl to download, ca-certificates so curl can verify GitHub's HTTPS certificate
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
 
-# Download and install Salmon
+# download the pre-compiled salmon release and unpack it to /opt/salmon
+RUN curl -fsSL -o /tmp/salmon.tar.gz \
+      https://github.com/COMBINE-lab/salmon/releases/download/v1.5.2/salmon-1.5.2_linux_x86_64.tar.gz && \
+    mkdir -p /opt/salmon && \
+    tar -xzf /tmp/salmon.tar.gz -C /opt/salmon --strip-components=1 && \
+    rm /tmp/salmon.tar.gz
 
-# Set the PATH environment variable (to /usr/bin)
+# make the salmon binary callable from anywhere
+ENV PATH="/opt/salmon/bin:${PATH}"
 
+CMD ["salmon", "--version"]

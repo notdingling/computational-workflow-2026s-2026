@@ -10,6 +10,7 @@ results_test*/
 rnaseq_out_allsamples/
 rnaseq_results/
 diffab_*/
+FastQC*/
 
 # Jupyter
 .ipynb_checkpoints/
@@ -21,3 +22,6 @@ fetchngs_out/
 *.fastq.gz
 *.bam
 *.bai
+
+.claude/
+CLAUDE.md
