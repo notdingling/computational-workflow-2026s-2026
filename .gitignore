@@ -7,6 +7,9 @@ null/
 # Pipeline outputs
 results/
 results_test*/
+rnaseq_out_allsamples/
+rnaseq_results/
+diffab_*/
 
 # Jupyter
 .ipynb_checkpoints/
@@ -16,3 +19,5 @@ results_test*/
 
 fetchngs_out/
 *.fastq.gz
+*.bam
+*.bai
