@@ -8,7 +8,8 @@ workflow{
     // Task 1 - Extract the first item from the channel
 
     if (params.step == 1) {
-        in_ch = channel.of(1,2,3)
+        in_ch = channel.of(1, 2, 3)
+        out_ch = in_ch.first()
 
     }
 
@@ -17,6 +18,7 @@ workflow{
     if (params.step == 2) {
 
         in_ch = channel.of(1,2,3)
+        out_ch = in_ch.last()
 
     }
 
@@ -25,7 +27,7 @@ workflow{
     if (params.step == 3) {
 
         in_ch = channel.of(1,2,3)
-
+        out_ch = in_ch.take(2)
 
     }
 
@@ -34,7 +36,7 @@ workflow{
     if (params.step == 4) {
 
         in_ch = channel.of(2,3,4)
-
+        out_ch = in_ch.map { it * it }
 
     }
 
@@ -43,7 +45,7 @@ workflow{
     if (params.step == 5) {
 
         in_ch = channel.of(2,3,4)
-        in_ch.map { it -> it * it }.take(2).view()
+        out_ch = in_ch.map { it -> it * it }.take(2)
         
     }
 
@@ -52,6 +54,7 @@ workflow{
     if (params.step == 6) {
         
         in_ch = channel.of('Taylor', 'Swift')
+        out_ch = in_ch.map { it.reverse() }
 
     }
 
@@ -60,7 +63,7 @@ workflow{
     if (params.step == 7) {
 
         in_ch = channel.fromPath('files_dir/*.fq')
-
+        out_ch = in_ch.map { file -> tuple(file.name, file) }
         
     }
 
@@ -70,7 +73,7 @@ workflow{
 
         ch_1 = channel.of(1,2,3)
         ch_2 = channel.of(4,5,6)
-        out_ch = channel.of("a", "b", "c")
+        out_ch = ch_1.mix(ch_2)
 
 
     }
@@ -80,7 +83,7 @@ workflow{
     if (params.step == 9) {
 
         in_ch = channel.of([1,2,3], [4,5,6])
-
+        out_ch = in_ch.flatten()
 
     }
 
@@ -89,6 +92,7 @@ workflow{
     if (params.step == 10) {
 
         in_ch = channel.of(1,2,3)
+        out_ch = in_ch.collect()
 
     }
     
@@ -102,7 +106,7 @@ workflow{
     if (params.step == 11) {
 
         in_ch = channel.of([1, 'V'], [3, 'M'], [2, 'O'], [1, 'f'], [3, 'G'], [1, 'B'], [2, 'L'], [2, 'E'], [3, '33'])
-
+        out_ch = in_ch.groupTuple()
     }
 
     // Task 12 - Create a channel that joins the input to the output channel. What do you notice
@@ -111,6 +115,7 @@ workflow{
 
         left_ch = channel.of([1, 'V'], [3, 'M'], [2, 'O'], [1, 'B'], [3, '33'])
         right_ch = channel.of([1, 'f'], [3, 'G'], [2, 'L'], [2, 'E'],)
+        out_ch = left_ch.join(right_ch)
 
     }
 
@@ -120,6 +125,16 @@ workflow{
     if (params.step == 13) {
 
         in_ch = channel.of(1,2,3,4,5,6,7,8,9,10)
+        in_ch.branch {
+        even: it % 2 == 0
+        odd:  it % 2 != 0
+        }.set { branched }
+
+        branched.even.collect().view { "Even numbers: $it" }
+        branched.odd.collect().view { "Odd numbers: $it" }
+
+        // Assign empty channel to out_ch to avoid workflow errors with out_ch.view()
+        out_ch = channel.empty()
 
     }
 
@@ -137,8 +152,12 @@ workflow{
             ['name': 'Hagrid', 'title': 'groundkeeper'],
             ['name': 'Dobby', 'title': 'hero'],
         )
+
+        out_ch = in_ch
+        .map { map -> map.name }
+        .collectFile(name: 'names.txt', storeDir: 'results', newLine: true)
     
     }
-
+    out_ch.view()
 
 }
