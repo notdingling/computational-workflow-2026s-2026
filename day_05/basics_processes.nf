@@ -6,6 +6,20 @@ params {
 
 process SAYHELLO {
     debug true
+
+    script:
+    """
+    echo "Hello World!"
+    """
+}
+
+process SAYHELLO_PYTHON {
+    debug true
+
+    script:
+    """
+    python3 -c 'print("Hello World!")'
+    """
 }
 
 

@@ -22,6 +22,4 @@ fetchngs_out/
 *.fastq.gz
 *.bam
 *.bai
-
-.claude/
-CLAUDE.md
+\\
