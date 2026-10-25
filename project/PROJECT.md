@@ -15,28 +15,21 @@ Project Github url: https://github.com/paula2701/projectrnaseq
 4. Write your report and also upload your paper **in PDF format**
 
 
-
-# Deadline
-
-**Uplaod your final work (assignment notebooks, pipeline code and paper) before the 24th of October at 6pm**.
-Later submissions (aka commit timestamps) cannot be graded!
-
-
-
-Introduction of the project:
+# Introduction to the project:
 We build a small RNA-seq pipeline using the nf-core template, it takes FASTQ files as input and produce 
 TPM table as output. 
 
-The pipeline includes 5 steps:
+# The pipeline includes 5 steps:
 1. Quality control, with FastQC and MultiQC
 2. Trimming, with fastp
 3. Alignment, with HISAT2
 4. Duplicate marking, with SAMtools
 5. Gene counts and TPM, with featureCounts and a local TPM script
 
-and 2 extras:
+# And 2 extras:
 1. Strandedness check, with RSeQC
 2. Efficiency check of featureCounts, with Salmon
 
-For a test run of our pipeline with our example sample data and reference, use the following commands:
+# Test it
+For a test run of the pipeline with our example sample and reference, use the following command:
 nextflow run . -profile test,docker --outdir results_test --quantifier featurecounts
