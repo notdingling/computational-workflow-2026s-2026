@@ -33,3 +33,5 @@ TPM table as output.
 # Test it
 For a test run of the pipeline with our example sample and reference, use the following command:
 nextflow run . -profile test,docker --outdir results_test --quantifier featurecounts
+
+More detaild of how to use the project please check out the README.md in the project repository (dev).
